@@ -1,0 +1,205 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage_Report.master.cs" Inherits="MasterPage_Report" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Stationery Store Inventory System</title>
+
+    <link runat="server" rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+    <link runat="server" rel="icon" href="images/favicon.ico" type="image/ico" />
+
+    <link href="style/StyleSheet1.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="js/modernizr-2.6.2.min.js"></script>
+
+    <%--Assign active status on navbar based on page--%>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var url = window.location;
+            $('.navbar .nav').find('.active').removeClass('active');
+            $('.navbar .nav li a').each(function () {
+                if (this.href == url) {
+                    $(this).parent().addClass('active');
+                }
+            });
+        });
+    </script>
+
+    <%--Assign type to alert box--%>
+    <script type="text/javascript">
+        function ShowMessage(message, messagetype) {
+            var cssclass;
+            switch (messagetype) {
+                case 'Success':
+                    cssclass = 'alert-success'
+                    break;
+                case 'Error':
+                    cssclass = 'alert-danger'
+                    break;
+                case 'Warning':
+                    cssclass = 'alert-warning'
+                    break;
+                default:
+                    cssclass = 'alert-info'
+            }
+            $('#alert_container').append('<div id="alert_div" class="alert fade in ' + cssclass
+                + '"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>'
+                + messagetype + '!</strong> <span>' + message + '</span></div>');
+        }
+    </script>
+
+    <%--Set timeout for alert box--%>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            window.setTimeout(function () {
+                $(".alert").fadeTo(1500, 0).slideUp(500, function () {
+                    $(this).remove();
+                });
+            }, 3000);
+        });
+    </script>
+
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+
+<body style="background-color: #ececec">
+   <form id="form1" runat="server">
+    <header id="t3-header" role="banner" style="vertical-align: middle">
+            <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+                <div class="container-fluid">
+                    <div class="row" style="padding-top: 8px; padding-bottom: 1px; padding-left: 15px; background-color: transparent">
+                        <div class="col-md-9" style="padding-left: 5%;">
+                           
+                        </div>
+                        <div class="col-md-3 visible-md visible-lg">
+                            <asp:LoginView ID="LoginView1" runat="server">
+                                <AnonymousTemplate>
+                                    <span aria-hidden="true" class="glyphicon glyphicon-user" style="color: #fff;"></span>
+                                    &nbsp;
+                                    <span style="color: #fff; font-family: 'Tw Cen MT'; font-size: 11px;">Hello Guest. Please log in.
+                                    </span>
+                                    &nbsp;
+                                    <asp:LoginStatus ID="LoginStatus1" runat="server" CssClass="btn-link" />
+                                </AnonymousTemplate>
+                                <LoggedInTemplate>
+                                    <span aria-hidden="true" class="glyphicon glyphicon-user" style="color: #fff;"></span>
+                                    &nbsp;
+                                    <span style="color: #fff; font-family: 'Tw Cen MT'; font-size: 11px;">Welcome
+                                        <asp:LoginName ID="LoginName1" runat="server" />
+                                    </span>
+                                    &nbsp;
+                                    <asp:LoginStatus ID="LoginStatus2" runat="server" CssClass="btn-link" />
+                                </LoggedInTemplate>
+                            </asp:LoginView>
+                        </div>
+
+                        <div class="navbar-header">
+
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#t3-navbar" aria-expanded="false" aria-controls="navbar">
+                      <i></i>
+                            </button>
+
+                            <div class="row" style="padding-top: 5px; padding-left: 35px;">
+                                <div class="col-md-1" style="width: 7%;">
+                                    <a href="Store_Dashboard.aspx">
+                                        <asp:Image ID="imgLogo" runat="server" ImageUrl="~/Images/Logo-03-W.png" Height="55px" Width="55px" />
+                                        </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-11" style="padding-top: 12px; padding-left: 20px;">
+                            <asp:Label ID="lblHeader" runat="server" Text="Stationery Store Inventory System"
+                                Font-Size="35px" ForeColor="White" Font-Bold="true" CssClass="navbar-head-t3 visible-lg"></asp:Label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12" style="padding-top: 0px; padding-left: 50px;">
+                            <div class="collapse navbar-collapse" id="t3-navbar">
+                                <ul class="nav navbar-nav navbar-left">
+                                    <li class="active"><a href="Store_Dashboard.aspx"><span>Home<span class="border"></span></span></a></li>
+                                    <li class="dropdown">
+                                    <a href="Store_StationeryCatalogue.aspx" class="dropdown-toggle" data-toggle="dropdown"
+                                        role="button" aria-haspopup="true" aria-expanded="false">
+                                        <span>Stationery Catalogue<span class="caret"></span></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li style="margin-top:6px"><a href="Store_StationeryCatalogue.aspx">Stationery Catalogue</a></li>
+                                        <li style="margin-top:10px"><a href="Store_AddNewStationeryCatalogue.aspx">Create New Stationery</a></li>
+                                        <li style="margin-top:10px"><a href="Store_MakePurchaseOrder.aspx">Reorder Report</a></li>
+                                        <li style="margin-top:10px"><a href="#">Storck Card</a></li>                                      
+                                    </ul>
+                                     </li> 
+                                     <li class="dropdown">
+                                    <a href="Store_MakePurchaseOrder.aspx" class="dropdown-toggle" data-toggle="dropdown"
+                                        role="button" aria-haspopup="true" aria-expanded="false">
+                                        <span>Purchase Order<span class="caret"></span></span></a>                                         
+                                    <ul class="dropdown-menu">                                                                                                            
+                                        <li style=" margin-top:6px;"><a href="Store_MakePurchaseOrder.aspx"><span>Purchase Order</span> </a></li>
+                                        <li  style=" margin-top:10px;"><a href="Store_ChangePurchaseOrder.aspx"><span>Change Purchase Order</span> </a></li>
+                                          <li></li> <li></li>                                         
+                                    </ul>
+                                     </li>   
+                                     <li class="dropdown">
+                                    <a href="Store_ListofRequisitionForms.aspx" class="dropdown-toggle" data-toggle="dropdown"
+                                        role="button" aria-haspopup="true" aria-expanded="false">
+                                        <span>Requisition Forms<span class="caret"></span></span></a>
+                                    <ul class="dropdown-menu" >
+                                        <li style=" margin-top:6px;"><a href="Store_ListofRequisitionForms.aspx"><span>View Requisition Forms</span></a></li>
+                                        <li  style=" margin-top:10px;"><a href="Store_IOUList.aspx">IOU List</a></li>                                                                             
+                                    </ul>
+                                     </li>
+                                       <li><a href="Store_RetrivalForm.aspx"><span>Retrieval List<span class="border"></span></span></a></li> 
+                                     <li class="dropdown">
+                                    <a href="Store_Disbursement.aspx" class="dropdown-toggle" data-toggle="dropdown"
+                                        role="button" aria-haspopup="true" aria-expanded="false">
+                                        <span>Disbursement List<span class="caret"></span></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li style=" margin-top:6px;"><a href="Store_Disbursement.aspx"><span>Create Disbursement List</span></a></li>   
+                                        <li style=" margin-top:6px;"><a href="../com.ssis.storeclerk/Store_DisbursementLists.aspx"><span>View Disbursement List</span></a></li>                                  
+                                    </ul>
+                                     </li>     
+                                    <li><a href="StoreManager_ApproveAdjustmentVoucher.aspx"><span>Approve Adjustment Voucher<span class="border"></span></span></a></li> 
+                                   
+                                    <li><asp:LoginStatus ID="LoginStatus2" runat="server" CssClass="btn-link hidden-md hidden-lg"                                       
+                                        LogoutText="<i aria-hidden='true' class='glyphicon glyphicon-log-out'></i>  Logout" /></li>
+                                     <li><a href="Store_RetrivalForm.aspx"><span>Report<span class="border"></span></span></a></li> 
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </nav>
+        </header>
+
+        <div>
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+
+
+        <div class="messagealert" id="alert_container"></div>
+
+
+        <div class="row">
+            <div class="col-md-1" style="width: 5%"></div>
+            <div class="col-md-6">
+                <span class="footer-t3">
+                    <p>&copy <a href="#">Logic University</a> | <a href="#">Stationery Store Inventory System</a> | Design by: <a href="#">GDip SA44 Team 3, Institute of System Science, NUS </a></p>
+                </span>
+            </div>
+            <div class="col-md-5"></div>
+        </div>
+    </form>
+</body>
+</html>

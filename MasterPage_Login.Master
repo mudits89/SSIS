@@ -1,0 +1,110 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" codefile="MasterPage_Login.master.cs" Inherits="MasterPage_Login" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Stationery Store Inventory System</title>
+
+    <link runat="server" rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+    <link runat="server" rel="icon" href="images/favicon.ico" type="image/ico" />
+
+    <link href="style/StyleSheet1.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="js/modernizr-2.6.2.min.js"></script>
+
+    <%--Assign active status on navbar based on page--%>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var url = window.location;
+            $('.navbar .nav').find('.active').removeClass('active');
+            $('.navbar .nav li a').each(function () {
+                if (this.href == url) {
+                    $(this).parent().addClass('active');
+                }
+            });
+        });
+    </script>
+
+    <%--Assign type to alert box--%>
+    <script type="text/javascript">
+        function ShowMessage(message, messagetype) {
+            var cssclass;
+            switch (messagetype) {
+                case 'Success':
+                    cssclass = 'alert-success'
+                    break;
+                case 'Error':
+                    cssclass = 'alert-danger'
+                    break;
+                case 'Warning':
+                    cssclass = 'alert-warning'
+                    break;
+                default:
+                    cssclass = 'alert-info'
+            }
+            $('#alert_container').append('<div id="alert_div" class="alert fade in ' + cssclass
+                + '"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>'
+                + messagetype + '!</strong> <span>' + message + '</span></div>');
+        }
+    </script>
+
+    <%--Set timeout for alert box--%>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            window.setTimeout(function () {
+                $(".alert").fadeTo(1500, 0).slideUp(500, function () {
+                    $(this).remove();
+                });
+            }, 3000);
+        });
+    </script>
+
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+
+<body style="background-color: #111">
+    <form id="form1" runat="server">
+
+        <div class="row" style="margin-top:-90px; padding-top: 0px; padding-left: 35px;">
+            <div class="col-md-4 visible-md visible-lg" style="padding-left:450px"></div>
+            <div class="col-md-4" style="padding-left:50px">               
+                    <asp:Image ID="imgLogo" runat="server" ImageUrl="~/Images/Logo-03-W.png" Height="150px" Width="150px" />
+            </div>
+        </div>
+
+        <div class="row" style="padding-top: 5px; padding-left: 35px;">
+            <div class="col-md-4" style="padding-left:5px;"></div>
+            <div class="col-md-5">
+                <asp:Label ID="lblHeader" runat="server" Text="Stationery Store Inventory System"
+                    Font-Size="15px" ForeColor="White" Font-Bold="true" CssClass="navbar-head-t3 visible-lg"></asp:Label>
+            </div>
+        </div>
+
+        <div>
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+
+                <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <span class="footer-t3" style="color:#fff !important;">
+                    <p>&copy <a href="#" style="color:#fff !important;">Logic University</a> | <a href="#" style="color:#fff !important;">Stationery Store Inventory System</a> | Design by: <a href="#" style="color:#fff !important;">GDip SA44 Team 3, Institute of System Science, NUS </a></p>
+                </span>
+            </div>
+            <div class="col-md-5"></div>
+        </div>
+
+    </form>
+</body>
+</html>
